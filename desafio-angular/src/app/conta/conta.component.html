@@ -1,0 +1,45 @@
+<div class="col-md-offset-1">
+    <h1>
+     Cliente: {{cliente}}
+    </h1>
+ </div>
+   
+  <br/>
+
+  <h2> Contas Vinculadas</h2>
+<div class="col-md-3">
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Número</th>
+  </tr>
+</thead>
+  <tbody>
+  <tr *ngFor="let conta of contas">
+    <td >{{conta.id}}</td>
+    <td>{{conta.numero}}</td>
+    <td><button class="btn btn-danger" (click)="getSaldo(conta)">Saldo</button></td>
+    <td><button class="btn btn-danger" (click)="selecionarOperacao(conta, 1)">Sacar</button></td>
+    <td><button class="btn btn-danger" (click)="selecionarOperacao(conta, 2)">Depositar</button></td>
+  </tr>
+  </tbody>
+</table>
+
+<br>
+	<div  class="col-xs-2" *ngIf="exibirSaldo">
+		<label for="input_valor">O Saldo é de: </label>
+		<input name= "input_valor" currencyMask [(ngModel)]="conta.saldo" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled="true"/>
+	</div>
+
+	<div class="form-group" *ngIf="exibirInput">
+	  <label for="input_valor">Digite o Valor: </label>
+	  <input name= "input_valor" currencyMask [(ngModel)]="conta.valorSaqueDeposito" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+	  <div style="margin-left: 292px;margin-top: -38px;">
+			<button class="btn btn-danger" (click)="atualizarSaldo(conta)">Salvar</button>
+	  </div>
+	  <div *ngIf="response.message != null">
+		<span>{{response.message}}</span>
+	  </div>
+	</div>
+</div>
